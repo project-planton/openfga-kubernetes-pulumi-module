@@ -1,2 +1,3 @@
-# openfga-kubernetes-pulumi-module
-Pulumi Module to Deploy "OpenFGA on Kubernetes" w/ Planton Cloud
+# Deploy Openfga on Kubernetes
+
+This is a Planton Cloud Pulumi Module to deploy [OpenFGA](https://openfga.dev/) on Kubernetes.
