@@ -11,28 +11,21 @@ import (
 func helmChart(ctx *pulumi.Context,
 	locals *Locals, createdNamespace *kubernetescorev1.Namespace) error {
 
-	// https://github.com/jenkinsci/helm-charts/blob/main/charts/jenkins/values.yaml
+	// https://github.com/openfga/helm-charts/blob/main/charts/openfga/values.yaml
 	var helmValues = pulumi.Map{
 		"fullnameOverride": pulumi.String(locals.OpenfgaKubernetes.Metadata.Name),
-		"replicaCount":     pulumi.Int(1),
+		"replicaCount":     pulumi.Int(locals.OpenfgaKubernetes.Spec.Container.Replicas),
 		"datastore": pulumi.Map{
-			"engine": pulumi.String("postgres"),
-			"uri":    pulumi.String("postgres://postgres:@pgk8s-planton-cloud-prod-t20240802.planton.live:5432/db_openfga?sslmode=require"),
+			"engine": pulumi.String(locals.OpenfgaKubernetes.Spec.Datastore.Engine),
+			"uri":    pulumi.String(locals.OpenfgaKubernetes.Spec.Datastore.Uri),
 		},
 		"resources": containerresources.ConvertToPulumiMap(locals.OpenfgaKubernetes.Spec.Container.Resources),
-		//"postgresql": pulumi.Map{
-		//	"enabled": pulumi.Bool(true),
-		//	"auth": pulumi.Map{
-		//		"postgresPassword": pulumi.String("RCKS63Qtt5CvyG7U1x2fXvnF4mxqhixPjm05Xv2YFknI3ULNuqZLWhTezgqbG0tJ"),
-		//		"database":         pulumi.String("postgres"),
-		//	},
-		//},
 	}
 
 	//merge extra helm values provided in the spec with base values
 	//mergemaps.MergeMapToPulumiMap(helmValues, locals.OpenfgaKubernetes.Spec.HelmValues)
 
-	//install jenkins helm-chart
+	//install openfga helm-chart
 	_, err := helmv3.NewChart(ctx,
 		locals.OpenfgaKubernetes.Metadata.Id,
 		helmv3.ChartArgs{

@@ -55,7 +55,7 @@ func ingress(ctx *pulumi.Context,
 				Listeners: gatewayv1.GatewaySpecListenersArray{
 					&gatewayv1.GatewaySpecListenersArgs{
 						Name:     pulumi.String("https-external"),
-						Hostname: pulumi.String(locals.IngressPlaygroundExternalHostname),
+						Hostname: pulumi.String(locals.IngressExternalHostname),
 						Port:     pulumi.Int(443),
 						Protocol: pulumi.String("HTTPS"),
 						Tls: &gatewayv1.GatewaySpecListenersTlsArgs{
@@ -74,7 +74,7 @@ func ingress(ctx *pulumi.Context,
 					},
 					&gatewayv1.GatewaySpecListenersArgs{
 						Name:     pulumi.String("http-external"),
-						Hostname: pulumi.String(locals.IngressPlaygroundInternalHostname),
+						Hostname: pulumi.String(locals.IngressInternalHostname),
 						Port:     pulumi.Int(80),
 						Protocol: pulumi.String("HTTP"),
 						AllowedRoutes: gatewayv1.GatewaySpecListenersAllowedRoutesArgs{
@@ -100,7 +100,7 @@ func ingress(ctx *pulumi.Context,
 				Labels:    pulumi.ToStringMap(labels),
 			},
 			Spec: gatewayv1.HTTPRouteSpecArgs{
-				Hostnames: pulumi.StringArray{pulumi.String(locals.IngressPlaygroundExternalHostname)},
+				Hostnames: pulumi.StringArray{pulumi.String(locals.IngressExternalHostname)},
 				ParentRefs: gatewayv1.HTTPRouteSpecParentRefsArray{
 					gatewayv1.HTTPRouteSpecParentRefsArgs{
 						Name:        pulumi.Sprintf("%s-external", locals.OpenfgaKubernetes.Metadata.Id),
@@ -124,7 +124,7 @@ func ingress(ctx *pulumi.Context,
 			},
 		}, pulumi.Parent(createdNamespace))
 
-	// Create HTTP route for external hostname for https listener
+	//Create HTTP route for external hostname for https listener
 	_, err = gatewayv1.NewHTTPRoute(ctx,
 		"https-external",
 		&gatewayv1.HTTPRouteArgs{
@@ -134,7 +134,7 @@ func ingress(ctx *pulumi.Context,
 				Labels:    pulumi.ToStringMap(labels),
 			},
 			Spec: gatewayv1.HTTPRouteSpecArgs{
-				Hostnames: pulumi.StringArray{pulumi.String(locals.IngressPlaygroundExternalHostname)},
+				Hostnames: pulumi.StringArray{pulumi.String(locals.IngressExternalHostname)},
 				ParentRefs: gatewayv1.HTTPRouteSpecParentRefsArray{
 					gatewayv1.HTTPRouteSpecParentRefsArgs{
 						Name:        pulumi.Sprintf("%s-external", locals.OpenfgaKubernetes.Metadata.Id),
@@ -156,7 +156,7 @@ func ingress(ctx *pulumi.Context,
 							gatewayv1.HTTPRouteSpecRulesBackendRefsArgs{
 								Name:      pulumi.String(locals.KubeServiceName),
 								Namespace: createdNamespace.Metadata.Name(),
-								Port:      pulumi.Int(3000),
+								Port:      pulumi.Int(8080),
 							},
 						},
 					},

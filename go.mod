@@ -2,7 +2,7 @@ module github.com/plantoncloud/openfga-kubernetes-pulumi-module
 
 go 1.22
 
-//replace github.com/plantoncloud/planton-cloud-apis => ../../plantoncloud/planton-cloud-apis
+replace github.com/plantoncloud/planton-cloud-apis => ../../plantoncloud/planton-cloud-apis
 
 //replace github.com/plantoncloud/stack-job-runner-golang-sdk => ../../plantoncloud/stack-job-runner-golang-sdk
 
@@ -17,7 +17,7 @@ require (
 
 require (
 	github.com/plantoncloud/kubernetes-crd-pulumi-types v0.0.0-20240811054507-35b7232001a0
-	github.com/plantoncloud/planton-cloud-apis v0.1.19
+	github.com/plantoncloud/planton-cloud-apis v0.1.23
 	github.com/plantoncloud/pulumi-module-golang-commons v0.0.0-20240813091317-49da3b41a14f
 	github.com/plantoncloud/stack-job-runner-golang-sdk v0.0.57
 )
