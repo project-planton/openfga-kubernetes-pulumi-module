@@ -2,7 +2,7 @@ module github.com/plantoncloud/openfga-kubernetes-pulumi-module
 
 go 1.22
 
-replace github.com/plantoncloud/planton-cloud-apis => ../../plantoncloud/planton-cloud-apis
+//replace github.com/plantoncloud/planton-cloud-apis => ../../plantoncloud/planton-cloud-apis
 
 //replace github.com/plantoncloud/stack-job-runner-golang-sdk => ../../plantoncloud/stack-job-runner-golang-sdk
 
