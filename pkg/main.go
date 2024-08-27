@@ -48,7 +48,7 @@ func (s *ResourceStack) Resources(ctx *pulumi.Context) error {
 
 	//create istio-ingress resources if ingress is enabled.
 	if locals.OpenfgaKubernetes.Spec.Ingress.IsEnabled {
-		if err := ingress(ctx, locals, createdNamespace, s.Labels); err != nil {
+		if err := ingress(ctx, locals, createdNamespace, kubernetesProvider, s.Labels); err != nil {
 			return errors.Wrap(err, "failed to create ingress resources")
 		}
 	}
