@@ -87,7 +87,7 @@ func ingress(ctx *pulumi.Context,
 					},
 				},
 			},
-		}, pulumi.DependsOn([]pulumi.Resource{createdCertificate}))
+		}, pulumi.Provider(kubernetesProvider), pulumi.DependsOn([]pulumi.Resource{createdCertificate}))
 	if err != nil {
 		return errors.Wrap(err, "error creating gateway")
 	}
