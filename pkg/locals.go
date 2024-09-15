@@ -27,15 +27,15 @@ type Locals struct {
 func initializeLocals(ctx *pulumi.Context, stackInput *openfgakubernetes.OpenfgaKubernetesStackInput) *Locals {
 	locals := &Locals{}
 	//assign value for the local variable to make it available across the project
-	locals.OpenfgaKubernetes = stackInput.ApiResource
+	locals.OpenfgaKubernetes = stackInput.Target
 
-	openfgaKubernetes := stackInput.ApiResource
+	openfgaKubernetes := stackInput.Target
 
 	locals.Labels = map[string]string{
-		kuberneteslabelkeys.Environment:  stackInput.ApiResource.Spec.EnvironmentInfo.EnvId,
-		kuberneteslabelkeys.Organization: stackInput.ApiResource.Spec.EnvironmentInfo.OrgId,
+		kuberneteslabelkeys.Environment:  stackInput.Target.Spec.EnvironmentInfo.EnvId,
+		kuberneteslabelkeys.Organization: stackInput.Target.Spec.EnvironmentInfo.OrgId,
 		kuberneteslabelkeys.Resource:     strconv.FormatBool(true),
-		kuberneteslabelkeys.ResourceId:   stackInput.ApiResource.Metadata.Id,
+		kuberneteslabelkeys.ResourceId:   stackInput.Target.Metadata.Id,
 		kuberneteslabelkeys.ResourceKind: apiresourcekind.ApiResourceKind_openfga_kubernetes.String(),
 	}
 
