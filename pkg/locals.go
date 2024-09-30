@@ -1,17 +1,16 @@
 package pkg
 
 import (
+	openfgakubernetesv1 "buf.build/gen/go/plantoncloud/project-planton/protocolbuffers/go/project/planton/apis/provider/kubernetes/openfgakubernetes/v1"
 	"fmt"
 	"github.com/plantoncloud/openfga-kubernetes-pulumi-module/pkg/outputs"
-	"github.com/plantoncloud/project-planton/apis/zzgo/cloud/planton/apis/code2cloud/v1/kubernetes/openfgakubernetes"
-	"github.com/plantoncloud/project-planton/apis/zzgo/cloud/planton/apis/commons/apiresource/enums/apiresourcekind"
 	"github.com/plantoncloud/pulumi-module-golang-commons/pkg/provider/kubernetes/kuberneteslabelkeys"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"strconv"
 )
 
 type Locals struct {
-	OpenfgaKubernetes            *openfgakubernetes.OpenfgaKubernetes
+	OpenfgaKubernetes            *openfgakubernetesv1.OpenfgaKubernetes
 	Namespace                    string
 	IngressCertClusterIssuerName string
 	IngressCertSecretName        string
@@ -24,7 +23,7 @@ type Locals struct {
 	Labels                       map[string]string
 }
 
-func initializeLocals(ctx *pulumi.Context, stackInput *openfgakubernetes.OpenfgaKubernetesStackInput) *Locals {
+func initializeLocals(ctx *pulumi.Context, stackInput *openfgakubernetesv1.OpenfgaKubernetesStackInput) *Locals {
 	locals := &Locals{}
 	//assign value for the local variable to make it available across the project
 	locals.OpenfgaKubernetes = stackInput.Target
@@ -36,7 +35,7 @@ func initializeLocals(ctx *pulumi.Context, stackInput *openfgakubernetes.Openfga
 		kuberneteslabelkeys.Organization: stackInput.Target.Spec.EnvironmentInfo.OrgId,
 		kuberneteslabelkeys.Resource:     strconv.FormatBool(true),
 		kuberneteslabelkeys.ResourceId:   stackInput.Target.Metadata.Id,
-		kuberneteslabelkeys.ResourceKind: apiresourcekind.ApiResourceKind_openfga_kubernetes.String(),
+		kuberneteslabelkeys.ResourceKind: "openfga_kubernetes",
 	}
 
 	//decide on the namespace

@@ -1,16 +1,16 @@
 package pkg
 
 import (
+	openfgakubernetesv1 "buf.build/gen/go/plantoncloud/project-planton/protocolbuffers/go/project/planton/apis/provider/kubernetes/openfgakubernetes/v1"
 	"github.com/pkg/errors"
 	"github.com/plantoncloud/openfga-kubernetes-pulumi-module/pkg/outputs"
-	"github.com/plantoncloud/project-planton/apis/zzgo/cloud/planton/apis/code2cloud/v1/kubernetes/openfgakubernetes"
 	"github.com/plantoncloud/pulumi-module-golang-commons/pkg/provider/kubernetes/pulumikubernetesprovider"
 	kubernetescorev1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/core/v1"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-func Resources(ctx *pulumi.Context, stackInput *openfgakubernetes.OpenfgaKubernetesStackInput) error {
+func Resources(ctx *pulumi.Context, stackInput *openfgakubernetesv1.OpenfgaKubernetesStackInput) error {
 	locals := initializeLocals(ctx, stackInput)
 	//create kubernetes-provider from the credential in the stack-input
 	kubernetesProvider, err := pulumikubernetesprovider.GetWithKubernetesClusterCredential(ctx,
