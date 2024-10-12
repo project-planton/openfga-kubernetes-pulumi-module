@@ -1,10 +1,10 @@
 package pkg
 
 import (
-	openfgakubernetesv1 "buf.build/gen/go/plantoncloud/project-planton/protocolbuffers/go/project/planton/provider/kubernetes/openfgakubernetes/v1"
+	openfgakubernetesv1 "buf.build/gen/go/project-planton/apis/protocolbuffers/go/project/planton/provider/kubernetes/openfgakubernetes/v1"
 	"fmt"
-	"github.com/plantoncloud/openfga-kubernetes-pulumi-module/pkg/outputs"
-	"github.com/plantoncloud/pulumi-module-golang-commons/pkg/provider/kubernetes/kuberneteslabelkeys"
+	"github.com/project-planton/openfga-kubernetes-pulumi-module/pkg/outputs"
+	"github.com/project-planton/pulumi-module-golang-commons/pkg/provider/kubernetes/kuberneteslabelkeys"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"strconv"
 )
