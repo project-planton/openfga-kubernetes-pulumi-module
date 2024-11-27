@@ -60,15 +60,15 @@ func initializeLocals(ctx *pulumi.Context, stackInput *openfgakubernetesv1.Openf
 
 	if openfgaKubernetes.Spec.Ingress == nil ||
 		!openfgaKubernetes.Spec.Ingress.IsEnabled ||
-		openfgaKubernetes.Spec.Ingress.EndpointDomainName == "" {
+		openfgaKubernetes.Spec.Ingress.DnsDomain == "" {
 		return locals
 	}
 
 	locals.IngressExternalHostname = fmt.Sprintf("%s.%s",
-		openfgaKubernetes.Metadata.Id, openfgaKubernetes.Spec.Ingress.EndpointDomainName)
+		openfgaKubernetes.Metadata.Id, openfgaKubernetes.Spec.Ingress.DnsDomain)
 
 	locals.IngressInternalHostname = fmt.Sprintf("%s-internal.%s", openfgaKubernetes.Metadata.Id,
-		openfgaKubernetes.Spec.Ingress.EndpointDomainName)
+		openfgaKubernetes.Spec.Ingress.DnsDomain)
 
 	locals.IngressHostnames = []string{
 		locals.IngressExternalHostname,
@@ -84,7 +84,7 @@ func initializeLocals(ctx *pulumi.Context, stackInput *openfgakubernetesv1.Openf
 	//if the kubernetes-cluster is created using Planton Cloud, then the cluster-issuer name will be
 	//same as the ingress-domain-name as long as the same ingress-domain-name is added to the list of
 	//ingress-domain-names for the GkeCluster/EksCluster/AksCluster spec.
-	locals.IngressCertClusterIssuerName = openfgaKubernetes.Spec.Ingress.EndpointDomainName
+	locals.IngressCertClusterIssuerName = openfgaKubernetes.Spec.Ingress.DnsDomain
 
 	locals.IngressCertSecretName = openfgaKubernetes.Metadata.Id
 
